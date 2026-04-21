@@ -1,7 +1,4 @@
 // Hero.jsx (React + TailwindCSS + Framer Motion)
-// ✅ "Get Started" -> Contact section (#contact) navigate + smooth scroll
-// ✅ "Book a Demo" removed, replaced with "Portfolio" -> #portfolio
-// ✅ Same design, clean & working
 
 import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
@@ -45,16 +42,15 @@ export default function Hero() {
           preload="auto"
           className="absolute inset-0 h-full w-full object-cover"
         >
-          {/* Vite: /public/hh.mp4 */}
           <source src="/hh.mp4" type="video/mp4" />
         </video>
 
-        {/* Dark-blue overlays */}
+        {/* Overlays */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-[#050814]/60 to-black/85" />
         <div className="absolute inset-0 bg-[radial-gradient(900px_520px_at_20%_20%,rgba(56,189,248,0.22),transparent_60%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(900px_520px_at_80%_75%,rgba(99,102,241,0.18),transparent_60%)]" />
 
-        {/* Subtle grid */}
+        {/* Grid */}
         <div
           className="absolute inset-0 opacity-20"
           style={{
@@ -84,21 +80,42 @@ export default function Hero() {
           {/* Main line */}
           <p className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight text-white">
             Grow faster with{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-300 via-blue-300 to-indigo-300">
+            <a
+              href="https://spadvertising.in/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-transparent bg-clip-text bg-gradient-to-r from-sky-300 via-blue-300 to-indigo-300 hover:opacity-80"
+            >
               SP Advertising
-            </span>
+            </a>
           </p>
 
           {/* Sub line */}
           <p className="mt-6 text-base md:text-lg text-white/80 leading-relaxed">
-            Welcome to SP ADVERTISING, one of the most creative and well-established
-            advertising agencies in Raipur, Chhattisgarh. With SP Advertising, make your
-            brand live better.
+            Welcome to{" "}
+            <a
+              href="https://spadvertising.in/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sky-300 hover:underline"
+            >
+              SP ADVERTISING
+            </a>
+            , one of the most creative and well-established advertising agencies
+            in Raipur, Chhattisgarh. With{" "}
+            <a
+              href="https://spadvertising.in/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sky-300 hover:underline"
+            >
+              SP Advertising
+            </a>
+            , make your brand live better.
           </p>
 
           {/* Buttons */}
           <div className="mt-10 flex flex-wrap justify-center gap-4">
-            {/* ✅ Contact */}
             <button
               onClick={() => scrollToId("#contact")}
               className="px-8 py-4 rounded-2xl bg-white text-[#050814] font-semibold shadow-xl hover:opacity-90 transition"
@@ -106,7 +123,6 @@ export default function Hero() {
               Get Started
             </button>
 
-            {/* ✅ Portfolio */}
             <button
               onClick={() => scrollToId("#portfolio")}
               className="px-8 py-4 rounded-2xl border border-white/25 bg-white/5 text-white backdrop-blur-xl hover:bg-white hover:text-[#050814] transition"
