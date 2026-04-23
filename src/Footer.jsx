@@ -9,9 +9,21 @@ export default function Footer() {
   ];
 
   const socials = [
-    { label: "Instagram", href: "https://www.instagram.com/spadvertisingrpr/", Icon: InstagramIcon },
-    { label: "Facebook", href: "https://www.facebook.com/spadvertisingraipur", Icon: FacebookIcon },
-    { label: "LinkedIn", href: "https://www.linkedin.com/company/sp-advertising20/", Icon: LinkedInIcon },
+    {
+      label: "Instagram",
+      href: "https://www.instagram.com/spadvertisingrpr/",
+      Icon: InstagramIcon,
+    },
+    {
+      label: "Facebook",
+      href: "https://www.facebook.com/spadvertisingraipur",
+      Icon: FacebookIcon,
+    },
+    {
+      label: "LinkedIn",
+      href: "https://www.linkedin.com/company/sp-advertising20/",
+      Icon: LinkedInIcon,
+    },
   ];
 
   const handleScroll = (e, href) => {
@@ -26,120 +38,197 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative overflow-hidden border-t border-sky-100 bg-gradient-to-br from-sky-50 via-white to-blue-50 py-16">
-      {/* Decorative backdrop */}
-      <div className="pointer-events-none absolute -left-24 top-10 h-80 w-80 rounded-full bg-sky-200/35 blur-3xl" />
-      <div className="pointer-events-none absolute -right-24 top-24 h-96 w-96 rounded-full bg-blue-200/25 blur-3xl" />
-      <div className="pointer-events-none absolute top-0 right-0 h-full w-1/2 -translate-x-[-10%] skew-x-[-12deg] bg-sky-100/40" />
+    <>
+      <style>{`
+        :root{
+          /* Same purple gradient theme */
+          --p1:#6D63FF;
+          --p2:#A855F7;
+        }
 
-      <div className="mx-auto max-w-7xl px-6 lg:px-12">
-        <div className="grid gap-14 lg:grid-cols-12">
-          {/* Brand Section */}
-          <div className="lg:col-span-5 space-y-6">
-            <a href="#home" onClick={(e) => handleScroll(e, "#home")} className="inline-block">
-              <img src={logo} alt="SP Advertising" className="h-14 w-auto object-contain" />
-            </a>
+        /* Light + premium (but still purple) */
+        .footer-bg{
+          background:
+            radial-gradient(900px circle at 10% 0%, rgba(109,99,255,0.18) 0, transparent 55%),
+            radial-gradient(900px circle at 90% 25%, rgba(168,85,247,0.16) 0, transparent 55%),
+            linear-gradient(180deg, #ffffff 0%, #fbfbff 35%, #f6f5ff 100%);
+        }
 
-            <p className="max-w-sm text-base font-medium leading-relaxed text-slate-600">
-              Elevating brands in Raipur and beyond. SP Advertising delivers 360° creative
-              solutions tailored for your business growth.
-            </p>
+        .footer-border{
+          border-color: rgba(109,99,255,0.14);
+        }
 
-            <div className="flex gap-3">
-              {socials.map(({ label, href, Icon }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex h-11 w-11 items-center justify-center rounded-2xl border border-sky-100 bg-white/80 text-slate-500 shadow-sm transition hover:-translate-y-0.5 hover:bg-sky-50 hover:text-sky-700"
-                  aria-label={label}
-                >
-                  <Icon className="h-5 w-5" />
-                </a>
-              ))}
-            </div>
-          </div>
+        .footer-title{
+          color: rgba(76,29,149,0.92); /* deep purple */
+        }
 
-          {/* Navigation Section */}
-          <div className="lg:col-span-3">
-            <h4 className="mb-6 text-xs font-black uppercase tracking-[0.22em] text-sky-700">
-              Navigation
-            </h4>
-            <ul className="space-y-3">
-              {navLinks.map((link) => (
-                <li key={link.label}>
+        .footer-text{
+          color: rgba(51,65,85,0.82); /* slate */
+        }
+
+        .footer-link{
+          color: rgba(51,65,85,0.82);
+        }
+        .footer-link:hover{
+          color: rgba(109,99,255,1);
+        }
+
+        .footer-icon{
+          border-color: rgba(109,99,255,0.16);
+          background: rgba(255,255,255,0.75);
+          color: rgba(51,65,85,0.70);
+          box-shadow: 0 10px 24px rgba(2,6,23,0.06);
+        }
+        .footer-icon:hover{
+          color: rgba(76,29,149,0.95);
+          background: rgba(255,255,255,0.95);
+          border-color: rgba(168,85,247,0.35);
+          box-shadow: 0 18px 44px rgba(109,99,255,0.14);
+          transform: translateY(-2px);
+        }
+
+        .footer-cta{
+          background: linear-gradient(90deg, var(--p1) 0%, var(--p2) 100%);
+          box-shadow: 0 16px 40px rgba(109,99,255,0.18);
+        }
+        .footer-cta:hover{
+          filter: brightness(1.06);
+          box-shadow: 0 20px 50px rgba(168,85,247,0.18);
+        }
+      `}</style>
+
+      <footer className="relative overflow-hidden footer-bg py-16">
+        {/* Decorative backdrop (lighter) */}
+        <div className="pointer-events-none absolute -left-24 top-10 h-80 w-80 rounded-full bg-indigo-300/20 blur-3xl" />
+        <div className="pointer-events-none absolute -right-24 top-24 h-96 w-96 rounded-full bg-purple-300/15 blur-3xl" />
+        <div className="pointer-events-none absolute top-0 right-0 h-full w-1/2 -translate-x-[-10%] skew-x-[-12deg] bg-violet-200/30" />
+
+        <div className="mx-auto max-w-7xl px-6 lg:px-12">
+          <div className="grid gap-14 lg:grid-cols-12">
+            {/* Brand Section */}
+            <div className="lg:col-span-5 space-y-6">
+              <a
+                href="#home"
+                onClick={(e) => handleScroll(e, "#home")}
+                className="inline-block"
+              >
+                <img
+                  src={logo}
+                  alt="SP Advertising"
+                  className="h-14 w-auto object-contain"
+                  style={{
+                    filter:
+                      "drop-shadow(0 10px 26px rgba(109,99,255,0.10)) drop-shadow(0 10px 26px rgba(168,85,247,0.08))",
+                  }}
+                />
+              </a>
+
+              <p className="max-w-sm text-base font-medium leading-relaxed footer-text">
+                Elevating brands in Raipur and beyond. SP Advertising delivers 360°
+                creative solutions tailored for your business growth.
+              </p>
+
+              <div className="flex gap-3">
+                {socials.map(({ label, href, Icon }) => (
                   <a
-                    href={link.href}
-                    onClick={(e) => handleScroll(e, link.href)}
-                    className="text-sm font-extrabold uppercase tracking-widest text-slate-600 transition-colors hover:text-sky-700"
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="footer-icon flex h-11 w-11 items-center justify-center rounded-2xl border transition"
+                    aria-label={label}
                   >
-                    {link.label}
+                    <Icon className="h-5 w-5" />
                   </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact Section */}
-          <div className="lg:col-span-4">
-            <h4 className="mb-6 text-xs font-black uppercase tracking-[0.22em] text-sky-700">
-              Quick Connect
-            </h4>
-            <div className="space-y-5">
-              <div>
-                <p className="mb-1 text-[10px] font-black uppercase tracking-widest text-slate-400">
-                  Call Us
-                </p>
-                <a
-                  href="tel:+918085354646"
-                  className="text-lg font-black text-slate-900 transition-colors hover:text-sky-700"
-                >
-                  +91-8085354646
-                </a>
+                ))}
               </div>
+            </div>
 
-              <div>
-                <p className="mb-1 text-[10px] font-black uppercase tracking-widest text-slate-400">
-                  Mail Us
-                </p>
-                <a
-                  href="mailto:spadvertising@live.com"
-                  className="break-all text-lg font-black text-slate-900 transition-colors hover:text-sky-700"
-                >
-                  spadvertising@live.com
-                </a>
-              </div>
+            {/* Navigation Section */}
+            <div className="lg:col-span-3">
+              <h4 className="mb-6 text-xs font-black uppercase tracking-[0.22em] footer-title">
+                Navigation
+              </h4>
+              <ul className="space-y-3">
+                {navLinks.map((link) => (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      onClick={(e) => handleScroll(e, link.href)}
+                      className="footer-link text-sm font-extrabold uppercase tracking-widest transition-colors"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-              <div>
-                <p className="mb-1 text-[10px] font-black uppercase tracking-widest text-slate-400">
-                  Visit Us
-                </p>
-                <p className="max-w-[260px] text-sm font-bold text-slate-600">
-                  Raipur, Chhattisgarh, 492001, India.
-                </p>
+            {/* Contact Section */}
+            <div className="lg:col-span-4">
+              <h4 className="mb-6 text-xs font-black uppercase tracking-[0.22em] footer-title">
+                Quick Connect
+              </h4>
+
+              <div className="space-y-5">
+                <div>
+                  <p className="mb-1 text-[10px] font-black uppercase tracking-widest text-slate-500/70">
+                    Call Us
+                  </p>
+                  <a
+                    href="tel:+918085354646"
+                    className="footer-link text-lg font-black transition-colors"
+                    style={{ color: "rgba(15,23,42,0.92)" }}
+                  >
+                    +91-8085354646
+                  </a>
+                </div>
+
+                <div>
+                  <p className="mb-1 text-[10px] font-black uppercase tracking-widest text-slate-500/70">
+                    Mail Us
+                  </p>
+                  <a
+                    href="mailto:spadvertising@live.com"
+                    className="footer-link break-all text-lg font-black transition-colors"
+                    style={{ color: "rgba(15,23,42,0.92)" }}
+                  >
+                    spadvertising@live.com
+                  </a>
+                </div>
+
+                <div>
+                  <p className="mb-1 text-[10px] font-black uppercase tracking-widest text-slate-500/70">
+                    Visit Us
+                  </p>
+                  <p className="max-w-[260px] text-sm font-bold footer-text">
+                    Raipur, Chhattisgarh, 492001, India.
+                  </p>
+                </div>
+
+                
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Bottom Bar */}
-        <div className="mt-14 flex flex-col items-center justify-center gap-4 border-t border-sky-100 pt-8 text-center">
-          <p className="text-[10px] font-black uppercase tracking-normal text-slate-500">
-            © {new Date().getFullYear()}{" "}
-            <a
-              href="https://spadvertising.in/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-black hover:underline"
-            >
-              SP ADVERTISING
-            </a>. ALL RIGHTS RESERVED.
-          </p>
+          {/* Bottom Bar */}
+          <div className="mt-14 flex flex-col items-center justify-center gap-4 border-t footer-border pt-8 text-center">
+            <p className="text-[10px] font-black uppercase tracking-normal text-slate-500">
+              © {new Date().getFullYear()}{" "}
+              <a
+                href="https://spadvertising.in/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-slate-900 hover:underline"
+              >
+                SP ADVERTISING
+              </a>
+              . ALL RIGHTS RESERVED.
+            </p>
+          </div>
         </div>
-
-      </div>
-    </footer>
+      </footer>
+    </>
   );
 }
 

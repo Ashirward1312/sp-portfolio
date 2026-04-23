@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import logo from "./assets/logo.png";
 
 export default function PortfolioHeader() {
@@ -16,25 +16,26 @@ export default function PortfolioHeader() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 30);
 
-      // Active section highlight
-      const sections = navLinks.map(link => document.querySelector(link.href));
-      const scrollPos = window.scrollY + 100;
+      for (const link of navLinks) {
+        const section = document.querySelector(link.href);
+        if (!section) continue;
 
-      sections.forEach(section => {
-        if (section) {
-          const top = section.offsetTop;
-          const height = section.offsetHeight;
-          if (scrollPos >= top && scrollPos < top + height) {
-            setActive(`#${section.id}`);
-          }
+        const height = section.offsetHeight || 0;
+        const offset = section.offsetTop || 0;
+
+        if (window.scrollY >= offset - 90 && window.scrollY < offset + height - 40) {
+          setActive(link.href);
+          break;
         }
-      });
+      }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleNavClick = (e, href) => {
@@ -42,7 +43,7 @@ export default function PortfolioHeader() {
     const target = document.querySelector(href);
     if (target) {
       window.scrollTo({
-        top: target.offsetTop - 80,
+        top: target.offsetTop - 72,
         behavior: "smooth",
       });
       setActive(href);
@@ -51,116 +52,190 @@ export default function PortfolioHeader() {
   };
 
   return (
-    <header 
-      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${
-        scrolled 
-        ? "py-3 bg-white/70 dark:bg-[#05070a]/70 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.1)] border-b border-white/10" 
-        : "py-6 bg-transparent"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between">
-        {/* Logo - Large and Premium */}
-        <motion.a 
-          href="#home"
-          onClick={(e) => handleNavClick(e, "#home")}
-          className="flex items-center group"
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-        >
-          <div className="relative">
-            <img 
-              src={logo} 
-              alt="SP Advertising" 
-              className={`transition-all duration-500 scale-125 object-contain ${scrolled ? 'h-12' : 'h-16'}`} 
-            />
-            <div className="absolute -inset-2 bg-sky-500/10 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
-          </div>
-        </motion.a>
+    <>
+      <style>{`
+        :root{
+          /* Same purple gradient as your button image */
+          --p1:#6D63FF;      /* indigo */
+          --p2:#A855F7;      /* purple */
+          --bg1:#0b1026;
+          --bg2:#070a18;
+        }
 
-        {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-10">
-          {navLinks.map((link, idx) => (
-            <motion.a
-              key={link.href}
-              href={link.href}
-              onClick={(e) => handleNavClick(e, link.href)}
-              className={`relative text-sm font-black uppercase tracking-[0.15em] transition-colors duration-300 ${
-                active === link.href 
-                ? "text-sky-500" 
-                : "text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white"
-              }`}
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.1 }}
-            >
-              {link.label}
-              {active === link.href && (
-                <motion.span 
-                  layoutId="navUnderline"
-                  className="absolute -bottom-2 left-0 right-0 h-0.5 bg-sky-500 rounded-full"
-                />
-              )}
-            </motion.a>
-          ))}
-        </nav>
+        .blend-nav * { mix-blend-mode: difference !important; }
 
-        {/* CTA Button */}
-        <div className="hidden lg:block">
+        /* Purple glow instead of blue */
+        .nav-glow {
+          background:
+            radial-gradient(circle at 18% 45%, rgba(109, 99, 255, 0.14) 0, transparent 60%),
+            radial-gradient(circle at 70% 30%, rgba(168, 85, 247, 0.12) 0, transparent 62%);
+          pointer-events: none;
+        }
+
+        .nav-cta{
+          background: linear-gradient(90deg, var(--p1) 0%, var(--p2) 100%);
+          box-shadow:
+            0 16px 34px rgba(109, 99, 255, 0.22),
+            0 0 0 1px rgba(168, 85, 247, 0.18) inset;
+        }
+        .nav-cta:hover{
+          filter: brightness(1.06);
+          box-shadow:
+            0 20px 44px rgba(168, 85, 247, 0.22),
+            0 0 0 1px rgba(109, 99, 255, 0.26) inset;
+        }
+
+        .nav-underline{
+          background: linear-gradient(90deg, rgba(109,99,255,1), rgba(168,85,247,1));
+        }
+
+        .nav-active{
+          color: #A78BFA !important; /* violet-400-ish */
+          text-shadow: 0 0 16px rgba(168, 85, 247, 0.18);
+        }
+      `}</style>
+
+      <header
+        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500
+          ${
+            scrolled
+              ? "backdrop-blur-xl bg-black/50 border-b border-white/5 shadow-[0_4px_32px_0_rgba(0,0,0,0.12)]"
+              : "bg-transparent border-none"
+          }`}
+        style={{ WebkitBackdropFilter: "blur(18px)" }}
+      >
+        <div className="nav-glow absolute inset-0 z-0" />
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-8 flex items-center justify-between h-[74px] lg:h-[84px] select-none">
+          {/* Logo */}
           <motion.a
-            href="#contact"
-            onClick={(e) => handleNavClick(e, "#contact")}
-            className="px-8 py-3 rounded-full bg-gradient-to-r from-sky-500 to-indigo-600 text-white text-xs font-black uppercase tracking-widest shadow-lg shadow-sky-500/20 hover:shadow-sky-500/40 transition-all hover:scale-105 active:scale-95"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
+            href="#home"
+            onClick={(e) => handleNavClick(e, "#home")}
+            className="flex items-center group"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
           >
-            Get Expert Advice
+            <img
+              src={logo}
+              alt="SP Advertising"
+              className="transition-all duration-500 h-10 lg:h-12 w-auto block object-contain"
+              style={{
+                filter:
+                  "drop-shadow(0 3px 18px rgba(109,99,255,0.22)) drop-shadow(0 3px 18px rgba(168,85,247,0.10))",
+              }}
+            />
           </motion.a>
+
+          {/* Desktop Navigation */}
+          <nav className="blend-nav hidden lg:flex items-center gap-10">
+            {navLinks.map((link, idx) => (
+              <motion.a
+                key={link.href}
+                href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
+                className={`relative text-[15px] font-bold uppercase tracking-[0.12em]
+                  px-1 transition text-white/80 hover:text-white`}
+                style={{
+                  letterSpacing: "0.12em",
+                }}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.07 }}
+              >
+                <span className={active === link.href ? "nav-active" : ""}>
+                  {link.label}
+                </span>
+
+                {/* Underline highlight */}
+                {active === link.href && (
+                  <motion.span
+                    layoutId="navUnderline"
+                    className="nav-underline absolute left-0 right-0 -bottom-1 h-0.5 rounded-full"
+                  />
+                )}
+              </motion.a>
+            ))}
+          </nav>
+
+          {/* Desktop CTA */}
+          <div className="hidden lg:block">
+            <motion.a
+              href="#contact"
+              onClick={(e) => handleNavClick(e, "#contact")}
+              className="nav-cta px-8 py-3 rounded-full text-white text-xs font-black uppercase tracking-widest shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition"
+              initial={{ opacity: 0, scale: 0.94 }}
+              animate={{ opacity: 1, scale: 1 }}
+            >
+              Get Expert Advice
+            </motion.a>
+          </div>
+
+          {/* Hamburger */}
+          <button
+            onClick={() => setOpen(!open)}
+            className="lg:hidden z-50 p-3 text-white focus:outline-none"
+            aria-label="Open menu"
+          >
+            <div className="w-7 h-5 flex flex-col justify-between">
+              <span
+                className={`w-full h-0.5 bg-current transition-all duration-300 ${
+                  open ? "rotate-45 translate-y-2" : ""
+                }`}
+              />
+              <span
+                className={`w-full h-0.5 bg-current transition-all duration-300 ${
+                  open ? "opacity-0" : ""
+                }`}
+              />
+              <span
+                className={`w-full h-0.5 bg-current transition-all duration-300 ${
+                  open ? "-rotate-45 -translate-y-2" : ""
+                }`}
+              />
+            </div>
+          </button>
         </div>
 
-        {/* Mobile Toggle */}
-        <button 
-          onClick={() => setOpen(!open)}
-          className="lg:hidden relative z-50 p-2 text-slate-800 dark:text-white"
-        >
-          <div className="w-6 h-5 flex flex-col justify-between">
-            <span className={`w-full h-0.5 bg-current transition-all duration-300 ${open ? 'rotate-45 translate-y-2' : ''}`} />
-            <span className={`w-full h-0.5 bg-current transition-all duration-300 ${open ? 'opacity-0' : ''}`} />
-            <span className={`w-full h-0.5 bg-current transition-all duration-300 ${open ? '-rotate-45 -translate-y-2' : ''}`} />
-          </div>
-        </button>
-      </div>
+        {/* Mobile Nav */}
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="lg:hidden blend-nav bg-black/95 pt-32 pb-12 px-8 fixed inset-0 flex flex-col z-50"
+            >
+              <div className="pointer-events-none absolute inset-0 nav-glow" />
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-white dark:bg-[#05070a] border-t border-slate-100 dark:border-white/5"
-          >
-            <div className="px-6 py-8 flex flex-col gap-6">
-              {navLinks.map((link) => (
+              <nav className="relative flex flex-col gap-7">
+                {navLinks.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    onClick={(e) => handleNavClick(e, link.href)}
+                    className={`text-xl font-black uppercase tracking-widest py-1 transition-colors
+                      ${
+                        active === link.href
+                          ? "text-violet-300"
+                          : "text-white/70 hover:text-white"
+                      }`}
+                  >
+                    {link.label}
+                  </a>
+                ))}
+
                 <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={(e) => handleNavClick(e, link.href)}
-                  className={`text-lg font-bold uppercase tracking-widest ${active === link.href ? 'text-sky-500' : 'text-slate-600 dark:text-slate-400'}`}
+                  href="#contact"
+                  onClick={(e) => handleNavClick(e, "#contact")}
+                  className="nav-cta mt-4 px-6 py-4 rounded-2xl text-white font-black uppercase tracking-widest text-center shadow"
                 >
-                  {link.label}
+                  Start Your Project
                 </a>
-              ))}
-              <a
-                href="#contact"
-                onClick={(e) => handleNavClick(e, "#contact")}
-                className="mt-4 px-6 py-4 rounded-2xl bg-sky-500 text-white text-center font-black uppercase tracking-widest"
-              >
-                Start Your Project
-              </a>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </header>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </header>
+    </>
   );
 }
