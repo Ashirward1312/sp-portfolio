@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 export default function ContactUs() {
   const phone = "+91-8085354646";
   const phoneDial = "+918085354646";
-  const email = "spadvertising@live.com";
+  const email = "info@spadvertising.in";
   const waLink = "https://wa.me/918085354646";
 
   const services = [
@@ -40,7 +40,20 @@ export default function ContactUs() {
   const onSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
+
+    const whatsappMessage = `Hello SP Advertising,
+I'm *${form.name}*.
+📞 Phone: ${form.phone}
+📧 Email: ${form.email}
+🛠️ Service: ${form.service}
+📝 Message: ${form.message}`;
+
+    const encodedMessage = encodeURIComponent(whatsappMessage);
+    const whatsappUrl = `https://wa.me/918085354646?text=${encodedMessage}`;
+
+    // Small delay to show loading state
     setTimeout(() => {
+      window.open(whatsappUrl, "_blank");
       setLoading(false);
       setForm({
         name: "",
@@ -49,7 +62,7 @@ export default function ContactUs() {
         service: services[0],
         message: "",
       });
-    }, 1200);
+    }, 800);
   };
 
   return (

@@ -24,6 +24,11 @@ export default function Footer() {
       href: "https://www.linkedin.com/company/sp-advertising20/",
       Icon: LinkedInIcon,
     },
+    {
+      label: "WhatsApp",
+      href: "https://wa.me/918085354646",
+      Icon: WhatsappIcon,
+    },
   ];
 
   const handleScroll = (e, href) => {
@@ -189,11 +194,11 @@ export default function Footer() {
                     Mail Us
                   </p>
                   <a
-                    href="mailto:spadvertising@live.com"
+                    href="mailto:info@spadvertising.in"
                     className="footer-link break-all text-lg font-black transition-colors"
                     style={{ color: "rgba(15,23,42,0.92)" }}
                   >
-                    spadvertising@live.com
+                    info@spadvertising.in
                   </a>
                 </div>
 
@@ -254,6 +259,14 @@ function LinkedInIcon({ className }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="currentColor">
       <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+    </svg>
+  );
+}
+
+function WhatsappIcon({ className }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.964 9.964 0 001.333 4.993L2 22l5.135-1.348a9.962 9.962 0 004.877 1.28h.004c5.505 0 9.988-4.478 9.99-9.984a9.966 9.966 0 00-2.92-7.062A9.957 9.957 0 0012.012 2zm5.726 14.12c-.244.686-1.42 1.31-1.956 1.396-.537.085-1.073.125-3.415-.81-2.822-1.125-4.646-3.99-4.786-4.177-.14-.187-1.144-1.523-1.144-2.9a3.11 3.11 0 011.008-2.316c.264-.264.574-.33.76-.33.187 0 .372.001.534.009.167.008.39-.063.61.464.225.54.767 1.866.834 2.002.066.136.11.294.02.472-.09.178-.135.308-.27.465-.134.156-.283.348-.403.466-.135.132-.276.275-.12.545.156.27.69 1.135 1.48 1.84.887.79 1.636 1.036 1.87 1.15.235.114.372.095.513-.065.14-.16.604-.702.766-.94.162-.24.323-.2.544-.118.221.082 1.4.66 1.638.779.237.118.396.177.454.275.058.099.058.572-.186 1.258z" />
     </svg>
   );
 }
