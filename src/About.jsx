@@ -40,7 +40,7 @@ export default function AboutUs({ imageSrc = "" }) {
 
               <div className="mt-4 flex flex-wrap gap-3">
                 <a
-                  href="#projects"
+                  href="#portfolio"
                   className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 px-6 py-3 text-sm font-extrabold text-white shadow-md shadow-indigo-500/25 transition hover:from-indigo-700 hover:to-purple-700"
                 >
                   Learn more
