@@ -1164,6 +1164,8 @@ const CATEGORY_LABELS = {
   "outdoor-advertising": "Outdoor Advertising",
   "print-media": "Print Media",
   video: "Video Showcase",
+  seo: "SEO Services",
+  "google-ads": "Google Ads",
 };
 const labelOf = (cat) => CATEGORY_LABELS[cat] || cat;
 
@@ -1220,6 +1222,18 @@ const generatePortfolioData = () => {
     if (url) data.push({ id: id++, category: "print-media", title: x.title, asset: url, type: "image" });
   });
 
+  // SEO
+  ["seovideo.mp4", "seovideo2.mp4"].forEach((file, i) => {
+    const url = getVideoUrl(file);
+    if (url) data.push({ id: id++, category: "seo", title: `SEO Video ${i + 1}`, asset: url, type: "video" });
+  });
+
+  // Google Ads
+  ["l.webp", "l2.webp"].forEach((file, i) => {
+    const url = getImageUrl(file);
+    if (url) data.push({ id: id++, category: "google-ads", title: `Google Ads ${i + 1}`, asset: url, type: "image" });
+  });
+
   return data;
 };
 
@@ -1236,6 +1250,8 @@ const categories = [
   { id: "in-shop-branding", name: "Branding" },
   { id: "outdoor-advertising", name: "Outdoor" },
   { id: "print-media", name: "Print" },
+  { id: "seo", name: "SEO" },
+  { id: "google-ads", name: "Google Ads" },
 ];
 
 /* ================== CURSOR GLOW ================== */
