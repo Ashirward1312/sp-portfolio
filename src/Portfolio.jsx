@@ -1227,9 +1227,13 @@ const generatePortfolioData = () => {
     const url = getVideoUrl(file);
     if (url) data.push({ id: id++, category: "seo", title: `SEO Video ${i + 1}`, asset: url, type: "video" });
   });
+  ["l.webp", "l2.webp"].forEach((file, i) => {
+    const url = getImageUrl(file);
+    if (url) data.push({ id: id++, category: "seo", title: `SEO Case Study ${i + 1}`, asset: url, type: "image" });
+  });
 
   // Google Ads
-  ["l.webp", "l2.webp"].forEach((file, i) => {
+  ["GA.png"].forEach((file, i) => {
     const url = getImageUrl(file);
     if (url) data.push({ id: id++, category: "google-ads", title: `Google Ads ${i + 1}`, asset: url, type: "image" });
   });
@@ -1245,7 +1249,7 @@ const categories = [
   { id: "video", name: "Video" },
   { id: "creative-posts", name: "Creative" },
   { id: "digital-marketing", name: "Digital" },
-  { id: "websites", name: "Web" },
+  { id: "websites", name: "Website" },
   { id: "event-promotion", name: "Events" },
   { id: "in-shop-branding", name: "Branding" },
   { id: "outdoor-advertising", name: "Outdoor" },
