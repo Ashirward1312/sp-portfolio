@@ -53,6 +53,7 @@ const CATEGORY_LABELS = {
   video: "Video Showcase",
   seo: "SEO Services",
   "google-ads": "Google Ads",
+  "lead-generation": "Lead Generation Campaign",
 };
 
 
@@ -152,6 +153,12 @@ const generatePortfolioData = () => {
     if (url) data.push({ id: id++, category: "google-ads", title: "Google Ads Campaign", asset: url, type: "image" });
   });
 
+  // Lead Generation
+  ["a1.jpeg", "a2.jpeg", "a3.jpeg", "a4.jpeg"].forEach((file, i) => {
+    const url = getImageUrl(file);
+    if (url) data.push({ id: id++, category: "lead-generation", title: `Lead Gen Campaign ${i + 1}`, asset: url, type: "image" });
+  });
+
   return data;
 };
 
@@ -169,6 +176,7 @@ const categories = [
   { id: "outdoor-advertising", name: "Outdoor" },
   { id: "seo", name: "SEO" },
   { id: "google-ads", name: "Google Ads" },
+  { id: "lead-generation", name: "Lead Generation" },
 ];
 
 /* ================== CURSOR GLOW ================== */
