@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import logo from "./assets/logo.png";
+import logo from "./assets/sp company logo.jpeg";
 
 export default function PortfolioHeader() {
   const [scrolled, setScrolled] = useState(false);
@@ -106,7 +106,7 @@ export default function PortfolioHeader() {
       >
         <div className="nav-glow absolute inset-0 z-0" />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-8 flex items-center justify-between h-[74px] lg:h-[84px] select-none">
+        <div className={`relative max-w-7xl mx-auto px-4 sm:px-8 flex items-center justify-between transition-all duration-500 ${scrolled ? "h-[70px] lg:h-[90px]" : "h-[100px] lg:h-[120px]"} select-none`}>
           {/* Logo */}
           <motion.a
             href="#home"
@@ -118,7 +118,7 @@ export default function PortfolioHeader() {
             <img
               src={logo}
               alt="SP Advertising"
-              className="transition-all duration-500 h-10 lg:h-12 w-auto block object-contain"
+              className={`transition-all duration-500 ${scrolled ? "h-10 lg:h-14" : "h-20 lg:h-28"} w-auto block object-contain`}
               style={{
                 filter:
                   "drop-shadow(0 3px 18px rgba(109,99,255,0.22)) drop-shadow(0 3px 18px rgba(168,85,247,0.10))",
